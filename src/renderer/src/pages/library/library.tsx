@@ -495,11 +495,31 @@ export default function Library() {
     Boolean(selectedCollectionId) &&
     !isFavoritesCollectionSelected &&
     hasNoFilteredGames;
+  const browserGamesCount = library.filter((game) => game.isBrowserGame).length;
+  const saveTierCount = library.filter(
+    (game) => game.cloudSaveSupport === "tier"
+  ).length;
 
   return (
     <section className="library__content">
       {hasGames && (
         <div className="library__page-header">
+          <div className="library__store-summary">
+            <div>
+              <h2 className="library__page-title">{t("store_summary_title")}</h2>
+              <p>{t("store_summary_description")}</p>
+            </div>
+
+            <div className="library__store-pills">
+              <span className="library__store-pill">
+                {t("browser_games_count", { count: browserGamesCount })}
+              </span>
+              <span className="library__store-pill">
+                {t("save_tier_count", { count: saveTierCount })}
+              </span>
+            </div>
+          </div>
+
           <div className="library__controls-row">
             <div className="library__controls-left">
               <FilterOptions sortBy={sortBy} onSortChange={handleSortChange} />

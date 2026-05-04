@@ -119,6 +119,12 @@ export default function Home() {
         <Hero />
 
         <section className="home__header">
+          <div className="home__store-intro">
+            <span className="home__store-eyebrow">{t("store_eyebrow")}</span>
+            <h2>{t("store_title")}</h2>
+            <p>{t("store_description")}</p>
+          </div>
+
           <ul className="home__buttons-list">
             {categories.map((category) => (
               <li key={category}>

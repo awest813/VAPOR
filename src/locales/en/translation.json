@@ -4,6 +4,9 @@
     "successfully_signed_in": "Successfully signed in"
   },
   "home": {
+    "store_eyebrow": "Storefront MVP",
+    "store_title": "Free browser games first, hosted saves second",
+    "store_description": "VAPOR now highlights browser-playable games you can launch instantly, while the paid tier stays focused on cheap cloud save hosting.",
     "surprise_me": "Surprise me",
     "no_results": "No results found",
     "start_typing": "Start typing to search...",
@@ -154,6 +157,10 @@
     "installation_complete_message": "Common redistributables installed successfully"
   },
   "catalogue": {
+    "store_eyebrow": "Store",
+    "store_title": "Play now, then decide if you want hosted saves",
+    "store_description": "Browse free browser games, claim them to your library, and add the save-hosting tier only if you want backups and cross-device persistence.",
+    "save_tier_note": "Hosted saves are an optional low-cost upgrade, not the entry price for the store.",
     "search": "Filter…",
     "developers": "Developers",
     "genres": "Genres",
@@ -177,7 +184,9 @@
     "release_year": "Release Year",
     "filter_by_release_year": "Filter by release year",
     "release_year_gte": "Release year from",
-    "release_year_lte": "Release year to"
+    "release_year_lte": "Release year to",
+    "browser_playable_badge": "Browser playable",
+    "free_to_play_badge": "Free"
   },
   "game_details": {
     "open_download_options": "Open download options",
@@ -231,6 +240,8 @@
     "not_played_yet": "You haven't played {{title}} yet",
     "next_suggestion": "Next suggestion",
     "play": "Play",
+    "browser_playable_badge": "Browser playable",
+    "free_to_play_badge": "Free",
     "deleting": "Deleting installer…",
     "close": "Close",
     "playing_now": "Playing now",
@@ -728,6 +739,7 @@
     "show_hidden_achievement_description": "Show hidden achievement descriptions before unlocking them",
     "account": "Account",
     "hydra_cloud": "Hydra Cloud",
+    "hydra_cloud_store_pitch": "Keep the store free to browse and play, then use Hydra Cloud only when you want hosted saves, backup history, and cross-device continuity.",
     "no_users_blocked": "You have no blocked users",
     "subscription_active_until": "Your Hydra Cloud is active until {{date}}",
     "manage_subscription": "Manage subscription",
@@ -868,6 +880,8 @@
     "quit": "Quit"
   },
   "game_card": {
+    "browser_playable": "Browser playable",
+    "free_to_play": "Free",
     "available_one": "Available",
     "available_other": "Available",
     "no_downloads": "No downloads available",
@@ -999,6 +1013,10 @@
   },
   "library": {
     "library": "Library",
+    "store_summary_title": "Your browser store library",
+    "store_summary_description": "Mix instant-play browser games with optional hosted-save coverage as the catalog grows.",
+    "browser_games_count": "{{count}} browser games",
+    "save_tier_count": "{{count}} titles ready for save hosting",
     "collections": "Collections",
     "play": "Play",
     "download": "Download",
@@ -1068,7 +1086,15 @@
     "hydra_cloud": "Hydra Cloud",
     "hydra_cloud_feature_found": "You've just discovered a Hydra Cloud feature!",
     "learn_more": "Learn More",
-    "debrid_description": "Download up to 4x faster with Nimbus"
+    "debrid_description": "Download up to 4x faster with Nimbus",
+    "store_save_plan_description": "Use Hydra Cloud as a cheap hosted-save plan for browser games: local progress stays free, while the upgrade adds backups, restore history, and account-linked sync.",
+    "free_tier_benefit": "Free tier: play instantly in the browser and keep local progress on this device.",
+    "paid_tier_benefit": "Hosted-save tier: sync your progress across sessions and devices.",
+    "backup_history_benefit": "Backup history: restore older save snapshots when something goes wrong.",
+    "local_save_status": "Local save active",
+    "best_local_score": "Best local score",
+    "save_tier_label": "Hosted-save plan",
+    "clear_local_save": "Clear local save"
   },
   "game_launcher": {
     "launching": "Launching...",

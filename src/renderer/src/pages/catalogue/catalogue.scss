@@ -15,6 +15,30 @@
     align-self: flex-start;
   }
 
+  &__intro {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: calc(globals.$spacing-unit * 2);
+    flex-wrap: wrap;
+    padding: calc(globals.$spacing-unit * 2);
+    border: 1px solid globals.$border-color;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.03);
+
+    h1,
+    p {
+      margin: 0;
+    }
+  }
+
+  &__intro-eyebrow {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
   &__header {
     display: flex;
     gap: 8px;

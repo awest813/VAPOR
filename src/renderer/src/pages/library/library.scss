@@ -19,6 +19,40 @@
     width: 100%;
   }
 
+  &__store-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: calc(globals.$spacing-unit * 2);
+    flex-wrap: wrap;
+    padding: calc(globals.$spacing-unit * 2);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.03);
+
+    p {
+      margin: calc(globals.$spacing-unit / 2) 0 0;
+      color: rgba(255, 255, 255, 0.72);
+    }
+  }
+
+  &__store-pills {
+    display: flex;
+    gap: globals.$spacing-unit;
+    flex-wrap: wrap;
+  }
+
+  &__store-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 12px;
+    font-weight: 600;
+  }
+
   &__page-header {
     display: flex;
     flex-direction: column;

@@ -37,6 +37,11 @@ export function GameCard({ game, ...props }: GameCardProps) {
   }, [game, stats]);
 
   const { numberFormatter } = useFormat();
+  const storefrontBadges = [
+    game.isBrowserGame ? t("browser_playable") : null,
+    game.isFreeToPlay ? game.price ?? t("free_to_play") : game.price,
+    game.cloudSaveSupport === "tier" ? game.cloudSaveTierLabel : null,
+  ].filter(Boolean) as string[];
 
   return (
     <button
@@ -53,13 +58,23 @@ export function GameCard({ game, ...props }: GameCardProps) {
           loading="lazy"
         />
 
-        <div className="game-card__content">
-          <div className="game-card__title-container">
-            {shopIcon[game.shop]}
-            <p className="game-card__title">{game.title}</p>
-          </div>
+          <div className="game-card__content">
+            <div className="game-card__title-container">
+              {shopIcon[game.shop]}
+              <p className="game-card__title">{game.title}</p>
+            </div>
 
-          {game.downloadSources.length > 0 ? (
+            {storefrontBadges.length > 0 && (
+              <ul className="game-card__storefront-badges">
+                {storefrontBadges.map((badge) => (
+                  <li key={badge}>
+                    <Badge>{badge}</Badge>
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {game.downloadSources.length > 0 ? (
             <ul className="game-card__download-options">
               {game.downloadSources.slice(0, 3).map((sourceName) => (
                 <li key={sourceName}>

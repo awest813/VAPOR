@@ -114,6 +114,12 @@ export function GameItem({ game }: GameItemProps) {
       ? protonBadgeValue
       : null;
 
+  const storeBadges = [
+    game.isBrowserGame ? t("browser_playable_badge") : null,
+    game.isFreeToPlay ? game.price ?? t("free_to_play_badge") : game.price,
+    game.cloudSaveSupport === "tier" ? game.cloudSaveTierLabel : null,
+  ].filter(Boolean) as string[];
+
   return (
     <article className="game-item">
       <Link to={buildGameDetailsPath(game)} className="game-item__content-link">
@@ -129,7 +135,17 @@ export function GameItem({ game }: GameItemProps) {
 
         <div className="game-item__details">
           <span>{game.title}</span>
-          <span className="game-item__genres">{genres.join(", ")}</span>
+          <span className="game-item__genres">
+            {game.shortDescription ?? genres.join(", ")}
+          </span>
+
+          {storeBadges.length > 0 && (
+            <div className="game-item__store-badges">
+              {storeBadges.map((badge) => (
+                <Badge key={badge}>{badge}</Badge>
+              ))}
+            </div>
+          )}
 
           <div className="game-item__repackers">
             {game.downloadSources.map((sourceName) => (

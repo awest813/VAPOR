@@ -1,3 +1,15 @@
+import { CatalogueCategory } from "@shared";
+import {
+  addMockGameToLibrary,
+  getMockCatalogueCategory,
+  getMockGameStats,
+  getMockLibrary,
+  getMockRandomGame,
+  getMockStorefrontGame,
+  getMockTrendingGames,
+  searchMockCatalogue,
+} from "./storefront/mock-store";
+
 const storageKey = (sublevelName: string | null | undefined, key: string) =>
   `hydra:web:${sublevelName ?? "default"}:${key}`;
 
@@ -31,11 +43,43 @@ const parseStorageValue = (value: string): unknown | null => {
 };
 
 const hydraApi = {
-  get: async <T = unknown>(url: string): Promise<T> => {
+  get: async <T = unknown>(
+    url: string,
+    options?: { params?: Record<string, unknown> }
+  ): Promise<T> => {
     if (url === "/features") return [] as T;
+    if (url === "/catalogue/featured") return getMockTrendingGames() as T;
+    if (
+      url === `/catalogue/${CatalogueCategory.Hot}` ||
+      url === `/catalogue/${CatalogueCategory.Weekly}` ||
+      url === `/catalogue/${CatalogueCategory.Achievements}`
+    ) {
+      const category = url.split("/").pop() as CatalogueCategory;
+      return getMockCatalogueCategory(category) as T;
+    }
+    if (url.startsWith("/catalogue/game/")) {
+      const [, , , shop, objectId] = url.split("/");
+      return getMockStorefrontGame(shop, objectId) as T;
+    }
+
+    if (url === "/catalogue/search") {
+      return searchMockCatalogue(
+        (options?.params ?? {}) as never
+      ) as T;
+    }
+
     return null as T;
   },
-  post: async <T = unknown>(): Promise<T> => null as T,
+  post: async <T = unknown>(
+    url?: string,
+    options?: { data?: Record<string, unknown> }
+  ): Promise<T> => {
+    if (url === "/catalogue/search") {
+      return searchMockCatalogue((options?.data ?? {}) as never) as T;
+    }
+
+    return null as T;
+  },
   put: async <T = unknown>(): Promise<T> => null as T,
   patch: async <T = unknown>(): Promise<T> => null as T,
   delete: async <T = unknown>(): Promise<T> => null as T,
@@ -133,7 +177,6 @@ const webElectron = new Proxy(
         ...(typeof preferences === "object" && preferences ? preferences : {}),
       });
     },
-    getLibrary: emptyList,
     getAllCustomThemes: emptyList,
     getDownloadSources: emptyList,
     getLocalNotifications: emptyList,
@@ -156,6 +199,25 @@ const webElectron = new Proxy(
       expectedVersion: null,
     }),
     showOpenDialog: async () => ({ canceled: true, filePaths: [] }),
+    openAuthWindow: async () => {
+      window.location.hash = "#/settings";
+    },
+    openCheckout: async () => {
+      window.location.hash = "#/settings";
+    },
+    getRandomGame: async () => getMockRandomGame(),
+    getGameStats: async (objectId: string, shop: string) =>
+      getMockGameStats(shop, objectId) ?? {
+        downloadCount: 0,
+        playerCount: 0,
+        averageScore: null,
+        reviewCount: 0,
+      },
+    addGameToLibrary: async (shop: string, objectId: string) => {
+      addMockGameToLibrary(shop, objectId);
+    },
+    getLibrary: async () => getMockLibrary(),
+    refreshLibraryAssets: async () => undefined,
     openExternal,
     onDownloadProgress: () => noopUnsubscribe,
     onHardDelete: () => noopUnsubscribe,
@@ -171,6 +233,7 @@ const webElectron = new Proxy(
     onCombinedAchievementsUnlocked: () => noopUnsubscribe,
     onCustomThemeUpdated: () => noopUnsubscribe,
     onNewDownloadOptions: () => noopUnsubscribe,
+    onLibraryBatchComplete: () => noopUnsubscribe,
     on: resolveUndefined,
     off: resolveUndefined,
   },

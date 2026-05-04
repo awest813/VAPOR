@@ -61,6 +61,15 @@
     list-style: none;
   }
 
+  &__storefront-badges {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    gap: globals.$spacing-unit;
+    flex-wrap: wrap;
+    list-style: none;
+  }
+
   &__specifics {
     display: flex;
     gap: calc(globals.$spacing-unit * 2);
