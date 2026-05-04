@@ -6,6 +6,7 @@ import { getMockStorefrontGame } from "@renderer/storefront/mock-store";
 import { SkyRunner } from "./games/sky-runner";
 import { VaultSwitch } from "./games/vault-switch";
 import { OrbitClicker } from "./games/orbit-clicker";
+import { PulseCascade } from "./games/pulse-cascade";
 import "./browser-game.scss";
 
 const saveKey = (gameId: string) => `hydra:web:browser-game:${gameId}:save`;
@@ -86,6 +87,9 @@ export default function BrowserGame() {
     }
     if (game.id === "browser-orbit-clicker") {
       return <OrbitClicker {...gameEngineProps} />;
+    }
+    if (game.id === "browser-pulse-cascade") {
+      return <PulseCascade {...gameEngineProps} />;
     }
     return <SkyRunner {...gameEngineProps} />;
   };

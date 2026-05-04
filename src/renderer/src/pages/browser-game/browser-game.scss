@@ -299,3 +299,52 @@
     opacity: 0;
   }
 }
+
+// ─── Pulse Cascade ───────────────────────────────────────────────────────────
+.pulse-game {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(globals.$spacing-unit * 2);
+  padding: calc(globals.$spacing-unit * 2);
+
+  &__board {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: calc(globals.$spacing-unit * 1.5);
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 1;
+  }
+
+  &__pad {
+    border-radius: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    background: color-mix(in srgb, var(--pad-color) 14%, rgba(15, 23, 42, 0.6));
+    cursor: pointer;
+    transition:
+      background 0.18s ease,
+      border-color 0.18s ease,
+      box-shadow 0.18s ease,
+      transform 0.1s ease;
+
+    &:hover:not(:disabled) {
+      transform: scale(1.02);
+      border-color: color-mix(in srgb, var(--pad-color) 60%, transparent);
+    }
+
+    &:disabled {
+      cursor: default;
+    }
+
+    &--active {
+      background: var(--pad-color);
+      border-color: rgba(255, 255, 255, 0.55);
+      box-shadow: 0 0 24px var(--pad-color);
+      transform: scale(1.02);
+    }
+  }
+}
