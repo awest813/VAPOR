@@ -1,7 +1,7 @@
 const storageKey = (sublevelName: string | null | undefined, key: string) =>
   `hydra:web:${sublevelName ?? "default"}:${key}`;
 
-const noopUnsubscribe = () => undefined as unknown as Electron.IpcRenderer;
+const noopUnsubscribe = () => undefined;
 
 const emptyList = async () => [];
 const resolveUndefined = async () => undefined;
@@ -94,7 +94,10 @@ const webElectron = new Proxy(
       }),
     updateUserPreferences: async (preferences: unknown) => {
       const current = readJson("hydra:web:userPreferences", {});
-      writeJson("hydra:web:userPreferences", { ...current, ...preferences });
+      writeJson("hydra:web:userPreferences", {
+        ...(typeof current === "object" && current ? current : {}),
+        ...(typeof preferences === "object" && preferences ? preferences : {}),
+      });
     },
     getLibrary: emptyList,
     getAllCustomThemes: emptyList,
@@ -143,7 +146,7 @@ const webElectron = new Proxy(
       return resolveUndefined;
     },
   }
-) as Electron;
+) as unknown as Electron;
 
 if (!window.electron) {
   window.electron = webElectron;
