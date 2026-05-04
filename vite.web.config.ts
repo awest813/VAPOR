@@ -10,6 +10,7 @@ export default defineConfig({
     outDir: resolve(__dirname, "out/web"),
     emptyOutDir: true,
     sourcemap: true,
+    target: "esnext",
     rollupOptions: {
       input: resolve(__dirname, "src/renderer/web.html"),
     },
