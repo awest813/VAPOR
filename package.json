@@ -25,7 +25,7 @@
     "dev": "electron-vite dev",
     "dev:web": "vite --config vite.web.config.ts",
     "build": "npm run typecheck && electron-vite build",
-    "build:web": "npm run typecheck:web && vite build --config vite.web.config.ts",
+    "build:web": "npm run typecheck && vite build --config vite.web.config.ts",
     "preview:web": "vite preview --config vite.web.config.ts",
     "postinstall": "npm run build:native && electron-builder install-app-deps && node ./scripts/postinstall.cjs",
     "build:python-rpc": "python3 python_rpc/setup.py build || python python_rpc/setup.py build",
