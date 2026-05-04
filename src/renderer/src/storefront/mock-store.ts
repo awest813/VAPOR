@@ -167,6 +167,37 @@ export const mockStorefrontGames: StorefrontGame[] = [
     accent: "#f97316",
     ...buildGameArt("Orbit Clicker", "Timing challenge", ["#f97316", "#ef4444"]),
   },
+  {
+    id: "browser-pulse-cascade",
+    objectId: "browser-pulse-cascade",
+    shop: "steam",
+    title: "Pulse Cascade",
+    logoPosition: "center",
+    downloadSources: ["Browser"],
+    isBrowserGame: true,
+    isFreeToPlay: true,
+    price: "Free",
+    shortDescription: "Repeat the pulse sequence as it grows each round.",
+    cloudSaveSupport: "tier",
+    cloudSaveTierLabel: "$2/mo hosted saves",
+    description:
+      "A Simon-style memory challenge for the browser. Watch the pads light up, repeat the sequence, and push your streak as the chain grows longer each round.",
+    heroDescription: "Sequence-memory arcade with hosted save streaks.",
+    featuredReason: "Replayable in 60-second bursts",
+    genreLabels: ["Memory", "Arcade"],
+    tags: ["browser", "memory", "free"],
+    developers: ["VAPOR Originals"],
+    publishers: ["VAPOR"],
+    releaseYear: 2026,
+    stats: {
+      downloadCount: 7320,
+      playerCount: 198,
+      averageScore: 4.3,
+      reviewCount: 67,
+    },
+    accent: "#22d3ee",
+    ...buildGameArt("Pulse Cascade", "Sequence memory", ["#22d3ee", "#a855f7"]),
+  },
 ];
 
 export const getMockStorefrontGame = (
