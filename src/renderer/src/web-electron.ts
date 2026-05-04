@@ -24,7 +24,8 @@ const writeJson = (key: string, value: unknown) => {
 const parseStorageValue = (value: string): unknown | null => {
   try {
     return JSON.parse(value);
-  } catch {
+  } catch (error) {
+    console.warn("Ignoring malformed web storage value", error);
     return null;
   }
 };
@@ -92,22 +93,32 @@ const leveldb = {
 };
 
 const openExternal = async (src: string) => {
-  const url = new URL(src, window.location.href);
+  let url: URL;
+
+  try {
+    url = new URL(src, window.location.href);
+  } catch (error) {
+    console.warn("Invalid external URL", error);
+    return;
+  }
 
   if (["http:", "https:", "mailto:"].includes(url.protocol)) {
     window.open(url.toString(), "_blank", "noopener,noreferrer");
   }
 };
 
+const normalizedPlatform = navigator.platform.toLowerCase();
+const browserPlatform = normalizedPlatform.includes("win")
+  ? "win32"
+  : normalizedPlatform.includes("mac")
+    ? "darwin"
+    : "linux";
+
 const webElectron = new Proxy(
   {
     hydraApi,
     leveldb,
-    platform: navigator.platform.toLowerCase().includes("win")
-      ? "win32"
-      : navigator.platform.toLowerCase().includes("mac")
-        ? "darwin"
-        : "linux",
+    platform: browserPlatform,
     getVersion: async () => "web",
     isStaging: async () => false,
     ping: () => "pong",
