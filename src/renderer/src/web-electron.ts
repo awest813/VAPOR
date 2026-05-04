@@ -45,13 +45,20 @@ const leveldb = {
     key: string,
     sublevelName?: string | null,
     valueEncoding?: "json" | "utf8"
-  ) => {
+  ): Promise<unknown | null> => {
     const value = window.localStorage.getItem(storageKey(sublevelName, key));
     if (!value) return null;
     return valueEncoding === "utf8" ? value : parseStorageValue(value);
   },
-  put: async (key: string, value: unknown, sublevelName?: string | null) => {
-    writeJson(storageKey(sublevelName, key), value);
+  put: async (
+    key: string,
+    value: unknown,
+    sublevelName?: string | null,
+    valueEncoding?: "json" | "utf8"
+  ) => {
+    const storageValue =
+      valueEncoding === "utf8" ? String(value) : JSON.stringify(value);
+    window.localStorage.setItem(storageKey(sublevelName, key), storageValue);
   },
   del: async (key: string, sublevelName?: string | null) => {
     window.localStorage.removeItem(storageKey(sublevelName, key));
