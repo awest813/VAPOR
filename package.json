@@ -1,7 +1,7 @@
 {
   "name": "hydralauncher",
   "version": "3.9.7",
-  "description": "Hydra",
+  "description": "VAPOR",
   "main": "./out/main/index.js",
   "author": "Los Broxas",
   "repository": {

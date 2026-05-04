@@ -18,7 +18,7 @@ export function categoryLabel(categoryId: GameSettingsCategoryId) {
     case "assets":
       return "Assets";
     case "hydra_cloud":
-      return "Hydra Cloud";
+      return "VAPOR Cloud";
     case "compatibility":
       return "Compatibility";
     case "downloads":

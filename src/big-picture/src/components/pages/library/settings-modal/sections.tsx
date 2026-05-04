@@ -199,7 +199,7 @@ function AssetsSection({
   return (
     <SettingsSection
       title="Assets"
-      description="Customize the library art used by Hydra."
+      description="Customize the library art used by VAPOR."
     >
       <div className="game-settings-modal__assets">
         {GAME_SETTINGS_ASSET_TYPES.map((assetType) => {
@@ -361,7 +361,7 @@ function HydraCloudSection({
     hydraCloudBody = (
       <div className="game-settings-modal__upgrade-card">
         <CloudIcon size={28} />
-        <p>Hydra Cloud is available with an active subscription.</p>
+        <p>VAPOR Cloud is available with an active subscription.</p>
         <Button onClick={() => globalThis.electron.openCheckout()}>
           Learn more
         </Button>
@@ -371,7 +371,7 @@ function HydraCloudSection({
 
   return (
     <SettingsSection
-      title="Hydra Cloud"
+      title="VAPOR Cloud"
       description="Manage cloud saves and backups for this game."
     >
       {hydraCloudBody}

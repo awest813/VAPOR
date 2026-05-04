@@ -152,7 +152,7 @@ export default function Catalogue() {
           description="Label, hint, ícones, erro e disabled."
         >
           <div className="catalogue-page__input-row">
-            <Input label="Default" placeholder="Hydra" />
+            <Input label="Default" placeholder="VAPOR" />
             <Input
               label="With icons"
               placeholder="Search"
