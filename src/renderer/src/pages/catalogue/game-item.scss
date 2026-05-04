@@ -180,4 +180,10 @@
     gap: globals.$spacing-unit;
     flex-wrap: wrap;
   }
+
+  &__store-badges {
+    display: flex;
+    gap: globals.$spacing-unit;
+    flex-wrap: wrap;
+  }
 }

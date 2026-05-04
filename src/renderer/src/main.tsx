@@ -35,6 +35,7 @@ import Library from "./pages/library/library";
 import Notifications from "./pages/notifications/notifications";
 import { AchievementNotification } from "./pages/achievements/notification/achievement-notification";
 import GameLauncher from "./pages/game-launcher/game-launcher";
+import BrowserGame from "./pages/browser-game/browser-game";
 import BigPictureApp from "../../big-picture/src/app";
 import BigPictureCatalogue from "../../big-picture/src/pages/catalogue/catalogue";
 import BigPictureDownloads from "../../big-picture/src/pages/downloads/downloads";
@@ -102,6 +103,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <Route path="/library" element={<Library />} />
             <Route path="/downloads" element={<Downloads />} />
             <Route path="/game/:shop/:objectId" element={<GameDetails />} />
+            <Route path="/play/:shop/:objectId" element={<BrowserGame />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/profile/:userId" element={<Profile />} />
             <Route path="/achievements" element={<Achievements />} />

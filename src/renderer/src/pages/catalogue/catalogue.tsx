@@ -407,6 +407,15 @@ export default function Catalogue() {
 
   return (
     <div className="catalogue" ref={cataloguePageRef}>
+      <section className="catalogue__intro">
+        <div>
+          <span className="catalogue__intro-eyebrow">{t("store_eyebrow")}</span>
+          <h1>{t("store_title")}</h1>
+          <p>{t("store_description")}</p>
+        </div>
+        <small>{t("save_tier_note")}</small>
+      </section>
+
       <div className="catalogue__header">
         <div className="catalogue__filters-wrapper">
           <ul className="catalogue__filters-list">

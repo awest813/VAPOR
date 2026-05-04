@@ -55,6 +55,12 @@ export interface ShopAssets {
   logoPosition: string | null;
   coverImageUrl: string | null;
   downloadSources: string[];
+  isBrowserGame?: boolean;
+  isFreeToPlay?: boolean;
+  price?: string | null;
+  shortDescription?: string | null;
+  cloudSaveSupport?: "local" | "tier" | "included";
+  cloudSaveTierLabel?: string | null;
 }
 
 export type ShopDetails = SteamAppDetails & {
@@ -117,6 +123,7 @@ export interface GameRunning {
 export interface Steam250Game {
   title: string;
   objectId: string;
+  isBrowserGame?: boolean;
 }
 
 export interface SteamGame {
@@ -467,7 +474,17 @@ export type CatalogueSearchResult = {
   protondbSupportBadges?: string[];
   deckCompatibility?: string | null;
   deckCompatibilities?: string[];
-} & Pick<ShopAssets, "libraryImageUrl" | "downloadSources">;
+} & Pick<
+  ShopAssets,
+  | "libraryImageUrl"
+  | "downloadSources"
+  | "isBrowserGame"
+  | "isFreeToPlay"
+  | "price"
+  | "shortDescription"
+  | "cloudSaveSupport"
+  | "cloudSaveTierLabel"
+>;
 
 export type LibraryGame = Game &
   Partial<ShopAssets> & {
