@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button } from "@renderer/components";
 import { useTranslation } from "react-i18next";
 import type { GameEngineProps } from "./sky-runner";
@@ -18,7 +18,7 @@ function createShuffledDeck(): Card[] {
   ]);
   for (let i = deck.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [deck[i], deck[j]] = [deck[j]!, deck[i]!];
+    [deck[i], deck[j]] = [deck[j], deck[i]];
   }
   return deck;
 }
@@ -38,6 +38,11 @@ export function VaultSwitch({
   const [finalScore, setFinalScore] = useState<number | null>(null);
 
   const matchedPairs = matched.size / 2;
+  // O(1) symbol look-up by card ID, rebuilt only when cards change
+  const cardMap = useMemo(
+    () => new Map(cards.map((c) => [c.id, c])),
+    [cards]
+  );
 
   useEffect(() => {
     if (!isRunning) return;
@@ -72,8 +77,8 @@ export function VaultSwitch({
 
     if (newFlipped.length === 2) {
       const [aId, bId] = newFlipped as [number, number];
-      const aSymbol = cards.find((c) => c.id === aId)!.symbol;
-      const bSymbol = cards.find((c) => c.id === bId)!.symbol;
+      const aSymbol = cardMap.get(aId)!.symbol;
+      const bSymbol = cardMap.get(bId)!.symbol;
 
       if (aSymbol === bSymbol) {
         const newMatched = new Set([...matched, aId, bId]);

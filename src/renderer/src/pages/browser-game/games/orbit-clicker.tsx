@@ -10,6 +10,7 @@ const HIT_ZONE_DEG = 40; // ±40° around 0° (top of ring)
 const RING_SIZE = 200; // px – container size
 const ORBIT_R = 84; // px – orbit radius from centre to dot centre
 const DOT_SIZE = 18; // px – orbiting dot diameter
+const FEEDBACK_DURATION_MS = 420; // must match the orbit-feedback-pop CSS animation
 
 // Pre-compute the static target-zone arc path (never changes)
 const ARC_PATH = (() => {
@@ -140,7 +141,7 @@ export function OrbitClicker({
       setFeedback("miss");
     }
     setFeedbackKey((k) => k + 1);
-    window.setTimeout(() => setFeedback(null), 420);
+    window.setTimeout(() => setFeedback(null), FEEDBACK_DURATION_MS);
   };
 
   const showNewBest = isRunning && score > 0 && score >= bestScore;
