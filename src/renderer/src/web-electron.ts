@@ -21,6 +21,14 @@ const writeJson = (key: string, value: unknown) => {
   window.localStorage.setItem(key, JSON.stringify(value));
 };
 
+const parseStorageValue = (value: string): unknown | null => {
+  try {
+    return JSON.parse(value);
+  } catch {
+    return null;
+  }
+};
+
 const hydraApi = {
   get: async <T = unknown>(url: string): Promise<T> => {
     if (url === "/features") return [] as T;
@@ -40,7 +48,7 @@ const leveldb = {
   ) => {
     const value = window.localStorage.getItem(storageKey(sublevelName, key));
     if (!value) return null;
-    return valueEncoding === "utf8" ? value : JSON.parse(value);
+    return valueEncoding === "utf8" ? value : parseStorageValue(value);
   },
   put: async (key: string, value: unknown, sublevelName?: string | null) => {
     writeJson(storageKey(sublevelName, key), value);
@@ -58,13 +66,21 @@ const leveldb = {
     const prefix = storageKey(sublevelName, "");
     return Object.entries(window.localStorage)
       .filter(([key]) => key.startsWith(prefix))
-      .map(([, value]) => JSON.parse(value));
+      .map(([, value]) => parseStorageValue(value))
+      .filter((value) => value !== null);
   },
   iterator: async (sublevelName: string) => {
     const prefix = storageKey(sublevelName, "");
     return Object.entries(window.localStorage)
       .filter(([key]) => key.startsWith(prefix))
-      .map(([key, value]) => [key.slice(prefix.length), JSON.parse(value)]);
+      .map(
+        ([key, value]) =>
+          [key.slice(prefix.length), parseStorageValue(value)] as [
+            string,
+            unknown,
+          ]
+      )
+      .filter(([, value]) => value !== null);
   },
 };
 
