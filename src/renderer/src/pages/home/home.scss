@@ -110,8 +110,15 @@
 
   &__title {
     display: flex;
+    align-items: center;
     gap: globals.$spacing-unit;
     padding: 0 calc(globals.$spacing-unit * 3);
+  }
+
+  &__title-emoji,
+  &__category-emoji {
+    font-size: 1em;
+    line-height: 1;
   }
 
   &__cards {

@@ -50,9 +50,9 @@ const hydraApi = {
     if (url === "/features") return [] as T;
     if (url === "/catalogue/featured") return getMockTrendingGames() as T;
     if (
-      url === `/catalogue/${CatalogueCategory.Hot}` ||
-      url === `/catalogue/${CatalogueCategory.Weekly}` ||
-      url === `/catalogue/${CatalogueCategory.Achievements}`
+      url === `/catalogue/${CatalogueCategory.Featured}` ||
+      url === `/catalogue/${CatalogueCategory.New}` ||
+      url === `/catalogue/${CatalogueCategory.Free}`
     ) {
       const category = url.split("/").pop() as CatalogueCategory;
       return getMockCatalogueCategory(category) as T;

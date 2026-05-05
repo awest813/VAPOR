@@ -56,6 +56,8 @@ export interface ShopAssets {
   coverImageUrl: string | null;
   downloadSources: string[];
   isBrowserGame?: boolean;
+  /** URL of a hosted HTML5 game to embed in a sandboxed iframe */
+  gameUrl?: string | null;
   isFreeToPlay?: boolean;
   price?: string | null;
   shortDescription?: string | null;

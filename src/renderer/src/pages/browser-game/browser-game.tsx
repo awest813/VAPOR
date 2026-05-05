@@ -1,5 +1,5 @@
 import { Button } from "@renderer/components";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { getMockStorefrontGame } from "@renderer/storefront/mock-store";
@@ -7,6 +7,8 @@ import { SkyRunner } from "./games/sky-runner";
 import { VaultSwitch } from "./games/vault-switch";
 import { OrbitClicker } from "./games/orbit-clicker";
 import { PulseCascade } from "./games/pulse-cascade";
+import { IframeGameHost } from "./iframe-game-host";
+import { Leaderboard } from "@renderer/components";
 import "./browser-game.scss";
 
 const saveKey = (gameId: string) => `hydra:web:browser-game:${gameId}:save`;
@@ -15,12 +17,15 @@ export default function BrowserGame() {
   const { shop, objectId } = useParams();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const surfaceRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation([
     "game_details",
     "hydra_cloud",
     "home",
     "sidebar",
   ]);
+
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   const game = useMemo(
     () => (shop && objectId ? getMockStorefrontGame(shop, objectId) : null),
@@ -60,6 +65,23 @@ export default function BrowserGame() {
     setBestScore(0);
   }, [game]);
 
+  const toggleFullscreen = useCallback(async () => {
+    if (!surfaceRef.current) return;
+    if (!document.fullscreenElement) {
+      await surfaceRef.current.requestFullscreen().catch(() => {});
+    } else {
+      await document.exitFullscreen().catch(() => {});
+    }
+  }, []);
+
+  useEffect(() => {
+    const onFullscreenChange = () => {
+      setIsFullscreen(Boolean(document.fullscreenElement));
+    };
+    document.addEventListener("fullscreenchange", onFullscreenChange);
+    return () => document.removeEventListener("fullscreenchange", onFullscreenChange);
+  }, []);
+
   if (!game) {
     return (
       <section className="browser-game">
@@ -82,6 +104,19 @@ export default function BrowserGame() {
   };
 
   const renderGameEngine = () => {
+    // External iframe-hosted game
+    if (game.gameUrl) {
+      return (
+        <IframeGameHost
+          gameUrl={game.gameUrl}
+          gameId={game.id}
+          onScoreUpdate={handleBestScoreUpdate}
+          onRequestFullscreen={toggleFullscreen}
+          className="browser-game__iframe"
+        />
+      );
+    }
+
     if (game.id === "browser-vault-switch") {
       return <VaultSwitch {...gameEngineProps} />;
     }
@@ -98,7 +133,9 @@ export default function BrowserGame() {
     <section className="browser-game">
       <div className="browser-game__hero">
         <div className="browser-game__copy">
-          <span className="browser-game__eyebrow">{t("home:hot")}</span>
+          <span className="browser-game__eyebrow">
+            {game.genreLabels.join(" · ")}
+          </span>
           <h1>{game.title}</h1>
           <p>{game.description}</p>
 
@@ -124,7 +161,22 @@ export default function BrowserGame() {
       </div>
 
       <div className="browser-game__layout">
-        <div className="browser-game__surface">{renderGameEngine()}</div>
+        <div
+          ref={surfaceRef}
+          className={`browser-game__surface${isFullscreen ? " browser-game__surface--fullscreen" : ""}`}
+        >
+          {renderGameEngine()}
+
+          <button
+            type="button"
+            className="browser-game__fullscreen-btn"
+            onClick={toggleFullscreen}
+            title={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+            aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+          >
+            {isFullscreen ? "⛉" : "⛶"}
+          </button>
+        </div>
 
         <aside className="browser-game__sidebar">
           <div className="browser-game__stat">
@@ -139,6 +191,8 @@ export default function BrowserGame() {
             <span>{t("hydra_cloud:save_tier_label")}</span>
             <strong>{game.cloudSaveTierLabel}</strong>
           </div>
+
+          <Leaderboard gameId={game.id} localBest={bestScore} />
 
           <div className="browser-game__sidebar-actions">
             <Button theme="outline" onClick={clearLocalSave}>
