@@ -198,6 +198,130 @@ export const mockStorefrontGames: StorefrontGame[] = [
     accent: "#22d3ee",
     ...buildGameArt("Pulse Cascade", "Sequence memory", ["#22d3ee", "#a855f7"]),
   },
+  {
+    id: "browser-neon-dash",
+    objectId: "browser-neon-dash",
+    shop: "steam",
+    title: "Neon Dash",
+    logoPosition: "center",
+    downloadSources: ["Browser"],
+    isBrowserGame: true,
+    isFreeToPlay: true,
+    price: "Free",
+    shortDescription: "Dodge neon obstacles and survive as long as possible.",
+    cloudSaveSupport: "tier",
+    cloudSaveTierLabel: "$2/mo hosted saves",
+    description:
+      "An endless runner set in a neon-drenched cyberpunk corridor. Jump, slide, and dash your way through randomized obstacle walls. How far can you go?",
+    heroDescription: "Cyberpunk endless runner — free, instant, in-browser.",
+    featuredReason: "New this week — high replay value",
+    genreLabels: ["Arcade", "Endless Runner"],
+    tags: ["browser", "arcade", "endless", "free", "cyberpunk"],
+    developers: ["VAPOR Originals"],
+    publishers: ["VAPOR"],
+    releaseYear: 2026,
+    stats: {
+      downloadCount: 5140,
+      playerCount: 342,
+      averageScore: 4.5,
+      reviewCount: 88,
+    },
+    accent: "#e879f9",
+    ...buildGameArt("Neon Dash", "Cyberpunk endless runner", ["#e879f9", "#7c3aed"]),
+  },
+  {
+    id: "browser-gravity-flip",
+    objectId: "browser-gravity-flip",
+    shop: "steam",
+    title: "Gravity Flip",
+    logoPosition: "center",
+    downloadSources: ["Browser"],
+    isBrowserGame: true,
+    isFreeToPlay: true,
+    price: "Free",
+    shortDescription: "Invert gravity at the right moment to survive each level.",
+    cloudSaveSupport: "tier",
+    cloudSaveTierLabel: "$2/mo hosted saves",
+    description:
+      "A physics platformer with a single mechanic — flip gravity. Navigate tight corridors, avoid spikes, and reach the exit. Each level is designed around one perfect flip.",
+    heroDescription: "One-button physics platformer — satisfying and tricky.",
+    featuredReason: "Puzzle lovers will flip for it",
+    genreLabels: ["Puzzle", "Platformer"],
+    tags: ["browser", "puzzle", "platformer", "physics", "free"],
+    developers: ["VAPOR Originals"],
+    publishers: ["VAPOR"],
+    releaseYear: 2026,
+    stats: {
+      downloadCount: 4820,
+      playerCount: 204,
+      averageScore: 4.4,
+      reviewCount: 71,
+    },
+    accent: "#34d399",
+    ...buildGameArt("Gravity Flip", "Physics platformer", ["#34d399", "#065f46"]),
+  },
+  {
+    id: "browser-hex-storm",
+    objectId: "browser-hex-storm",
+    shop: "steam",
+    title: "Hex Storm",
+    logoPosition: "center",
+    downloadSources: ["Browser"],
+    isBrowserGame: true,
+    isFreeToPlay: true,
+    price: "Free",
+    shortDescription: "Connect matching hexes before the board fills up.",
+    cloudSaveSupport: "tier",
+    cloudSaveTierLabel: "$2/mo hosted saves",
+    description:
+      "A tile-connection puzzle where you draw paths between matching hex pairs while the board keeps filling. Quick to learn, hard to master — perfect for a 5-minute break.",
+    heroDescription: "Hexagonal match puzzle — relaxing but brain-teasing.",
+    featuredReason: "Top-rated puzzle this month",
+    genreLabels: ["Puzzle", "Strategy"],
+    tags: ["browser", "puzzle", "strategy", "hex", "free"],
+    developers: ["VAPOR Originals"],
+    publishers: ["VAPOR"],
+    releaseYear: 2026,
+    stats: {
+      downloadCount: 6200,
+      playerCount: 317,
+      averageScore: 4.7,
+      reviewCount: 115,
+    },
+    accent: "#fbbf24",
+    ...buildGameArt("Hex Storm", "Tile connection puzzle", ["#fbbf24", "#b45309"]),
+  },
+  {
+    id: "browser-starfield-shooter",
+    objectId: "browser-starfield-shooter",
+    shop: "steam",
+    title: "Starfield Shooter",
+    logoPosition: "center",
+    downloadSources: ["Browser"],
+    isBrowserGame: true,
+    isFreeToPlay: true,
+    price: "Free",
+    shortDescription: "Classic top-down space shooter with power-up drops.",
+    cloudSaveSupport: "tier",
+    cloudSaveTierLabel: "$2/mo hosted saves",
+    description:
+      "Retro-style top-down shooter with procedurally spawned enemy waves, screen-clearing bombs, and a power-up drop system. Compete for the highest score on the global leaderboard.",
+    heroDescription: "Old-school space shooter with modern leaderboards.",
+    featuredReason: "Global leaderboard — new top score every day",
+    genreLabels: ["Shoot 'em up", "Arcade"],
+    tags: ["browser", "arcade", "shooter", "space", "free"],
+    developers: ["VAPOR Originals"],
+    publishers: ["VAPOR"],
+    releaseYear: 2026,
+    stats: {
+      downloadCount: 11300,
+      playerCount: 489,
+      averageScore: 4.8,
+      reviewCount: 183,
+    },
+    accent: "#60a5fa",
+    ...buildGameArt("Starfield Shooter", "Space arcade", ["#60a5fa", "#1e3a8a"]),
+  },
 ];
 
 export const getMockStorefrontGame = (
@@ -209,20 +333,26 @@ export const getMockStorefrontGame = (
   ) ?? null;
 
 export const getMockTrendingGames = (): TrendingGame[] =>
-  mockStorefrontGames.slice(0, 1).map((game) => ({
+  [mockStorefrontGames[7]!, mockStorefrontGames[0]!].map((game) => ({
     ...game,
     description: game.heroDescription,
     uri: `/play/${game.shop}/${game.objectId}?title=${encodeURIComponent(game.title)}`,
   }));
 
 const categoryOrder: Record<CatalogueCategory, StorefrontGame[]> = {
-  [CatalogueCategory.Hot]: mockStorefrontGames,
-  [CatalogueCategory.Weekly]: [...mockStorefrontGames].reverse(),
-  [CatalogueCategory.Achievements]: [
-    mockStorefrontGames[1],
-    mockStorefrontGames[0],
-    mockStorefrontGames[2],
+  [CatalogueCategory.Featured]: [
+    mockStorefrontGames[7], // Starfield Shooter
+    mockStorefrontGames[6], // Hex Storm
+    mockStorefrontGames[0], // Sky Runner
+    mockStorefrontGames[1], // Vault Switch
   ],
+  [CatalogueCategory.New]: [
+    mockStorefrontGames[4], // Neon Dash
+    mockStorefrontGames[5], // Gravity Flip
+    mockStorefrontGames[6], // Hex Storm
+    mockStorefrontGames[7], // Starfield Shooter
+  ],
+  [CatalogueCategory.Free]: mockStorefrontGames,
 };
 
 export const getMockCatalogueCategory = (

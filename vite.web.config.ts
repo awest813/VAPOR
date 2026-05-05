@@ -6,6 +6,7 @@ import { scopeBigPictureCss } from "./src/big-picture/vite-scope-big-picture-css
 
 export default defineConfig({
   root: resolve(__dirname, "src/renderer"),
+  publicDir: resolve(__dirname, "src/renderer/public"),
   build: {
     outDir: resolve(__dirname, "out/web"),
     emptyOutDir: true,

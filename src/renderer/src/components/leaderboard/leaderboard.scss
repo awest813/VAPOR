@@ -1,0 +1,84 @@
+@use "../../scss/globals.scss";
+
+.leaderboard {
+  border: 1px solid globals.$border-color;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: calc(globals.$spacing-unit * 2);
+
+  &__title {
+    margin: 0 0 calc(globals.$spacing-unit * 1.5);
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  &__empty {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 13px;
+    margin: 0;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 2px;
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    align-items: center;
+    gap: globals.$spacing-unit;
+    padding: calc(globals.$spacing-unit * 0.75) calc(globals.$spacing-unit);
+    border-radius: 8px;
+    font-size: 13px;
+    transition: background 0.15s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    &--you {
+      background: rgba(124, 92, 255, 0.12);
+      border: 1px solid rgba(124, 92, 255, 0.25);
+
+      .leaderboard__player {
+        color: #a78bfa;
+        font-weight: 600;
+      }
+
+      .leaderboard__score {
+        color: #a78bfa;
+      }
+    }
+
+    &--top1 .leaderboard__rank { color: #fbbf24; }
+    &--top2 .leaderboard__rank { color: #d1d5db; }
+    &--top3 .leaderboard__rank { color: #b45309; }
+  }
+
+  &__rank {
+    text-align: center;
+    font-size: 14px;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  &__player {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  &__score {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+  }
+}

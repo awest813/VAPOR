@@ -1,0 +1,188 @@
+@use "../../scss/globals.scss";
+
+.dev-portal {
+  display: flex;
+  flex-direction: column;
+  gap: calc(globals.$spacing-unit * 3);
+  padding: calc(globals.$spacing-unit * 3);
+  height: 100%;
+  overflow-y: auto;
+
+  &__header {
+    display: grid;
+    gap: calc(globals.$spacing-unit * 0.5);
+    max-width: 680px;
+
+    h1 {
+      margin: 0;
+    }
+  }
+
+  &__eyebrow {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+  }
+
+  &__subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+  }
+
+  &__layout {
+    display: grid;
+    gap: calc(globals.$spacing-unit * 3);
+    grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+    align-items: start;
+
+    @media (max-width: 880px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__main,
+  &__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: calc(globals.$spacing-unit * 3);
+  }
+
+  &__card {
+    border: 1px solid globals.$border-color;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: calc(globals.$spacing-unit * 3);
+
+    h2 {
+      margin: 0 0 calc(globals.$spacing-unit);
+    }
+
+    &--muted {
+      opacity: 0.65;
+    }
+  }
+
+  &__card-description {
+    color: rgba(255, 255, 255, 0.65);
+    margin: 0 0 calc(globals.$spacing-unit * 2);
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: calc(globals.$spacing-unit * 2);
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: calc(globals.$spacing-unit * 0.75);
+  }
+
+  &__label {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  &__textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid globals.$border-color;
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.9);
+    font-family: inherit;
+    font-size: 14px;
+    padding: 10px 14px;
+    resize: vertical;
+    box-sizing: border-box;
+    transition: border-color 0.15s ease;
+
+    &:focus {
+      outline: none;
+      border-color: rgba(124, 92, 255, 0.6);
+    }
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+  }
+
+  &__error {
+    color: #f87171;
+    font-size: 13px;
+    margin: 0;
+  }
+
+  &__success {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: calc(globals.$spacing-unit * 1.5);
+    padding: calc(globals.$spacing-unit * 2);
+    border-radius: 12px;
+    background: rgba(31, 191, 117, 0.08);
+    border: 1px solid rgba(31, 191, 117, 0.25);
+
+    p {
+      margin: 0;
+      color: #6ee7b7;
+    }
+  }
+
+  &__success-icon {
+    font-size: 24px;
+  }
+
+  &__code-block {
+    position: relative;
+    border: 1px solid globals.$border-color;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+
+    pre {
+      margin: 0;
+      padding: calc(globals.$spacing-unit * 2);
+      font-size: 11px;
+      line-height: 1.6;
+      overflow-x: auto;
+      color: rgba(255, 255, 255, 0.8);
+      max-height: 280px;
+      scrollbar-width: thin;
+    }
+  }
+
+  &__copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 4px 12px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+  }
+
+  &__guidelines {
+    margin: 0;
+    padding-left: calc(globals.$spacing-unit * 2);
+    display: grid;
+    gap: calc(globals.$spacing-unit * 0.75);
+    color: rgba(255, 255, 255, 0.75);
+
+    li {
+      font-size: 13px;
+      line-height: 1.5;
+    }
+  }
+}

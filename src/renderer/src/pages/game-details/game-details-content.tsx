@@ -1,7 +1,7 @@
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { PencilIcon } from "@primer/octicons-react";
 import { useTranslation } from "react-i18next";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { HeroPanel } from "./hero";
 import { DescriptionHeader } from "./description-header/description-header";
@@ -12,6 +12,7 @@ import { GameLogo } from "./game-logo";
 
 import { AuthPage } from "@shared";
 import { cloudSyncContext, gameDetailsContext } from "@renderer/context";
+import { Button } from "@renderer/components";
 
 import cloudIconAnimated from "@renderer/assets/icons/cloud-animated.gif";
 import { useUserDetails, useLibrary } from "@renderer/hooks";
@@ -56,6 +57,7 @@ export function GameDetailsContent() {
   const { t } = useTranslation("game_details");
   const [searchParams] = useSearchParams();
   const reviewsRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const {
     objectId,
@@ -172,6 +174,20 @@ export function GameDetailsContent() {
               <GameLogo game={game} shopDetails={shopDetails} />
 
               <div className="game-details__hero-buttons game-details__hero-buttons--right">
+                {game?.isBrowserGame && (
+                  <Button
+                    theme="primary"
+                    className="game-details__play-now-button"
+                    onClick={() =>
+                      navigate(
+                        `/play/${game.shop}/${game.objectId}?title=${encodeURIComponent(game.title)}`
+                      )
+                    }
+                  >
+                    ▶ {t("play_now")}
+                  </Button>
+                )}
+
                 {game && (
                   <button
                     type="button"
