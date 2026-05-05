@@ -171,13 +171,10 @@ export default function BrowserGame() {
             type="button"
             className="browser-game__fullscreen-btn"
             onClick={toggleFullscreen}
-            title={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
+            title={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
             aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
           >
-            {isFullscreen ? "⛶" : "⛶"}
-            <span className="browser-game__fullscreen-label">
-              {isFullscreen ? "Exit" : "⛶"}
-            </span>
+            {isFullscreen ? "⛉" : "⛶"}
           </button>
         </div>
 
